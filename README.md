@@ -1,6 +1,8 @@
 # Setting up Pitrex Development environment under WSL #
   
-Malban works with a VM image to compile Pitrex. Using VM seems to compile code faster than WSL (strangely enough) but for convenience, I prefer WSL.  
+Malban works with a VM image to compile Pitrex. You can watch his setup tutorial [here](http://vide.malban.de/pitrex/pitrex-baremetal-quick-start-unfinished)  
+  
+Using VM seems to compile code faster than WSL (strangely enough) but for convenience, I prefer WSL.  
 This is what you need to do on a fresh Ubuntu (in my case 20.04) install under Windows WSL 
     
 ```sudo apt-get update && apt-get install make```  
