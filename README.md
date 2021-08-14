@@ -1,5 +1,7 @@
 # Setting up Pitrex Development environment under WSL #
-I'm using WSL to compile Pitrex. This is what you need to do on a fresh Ubuntu (in my case 20.04) install under Windows WSL 
+  
+Malban works with a VM image to compile Pitrex. Using VM seems to compile code faster than WSL (strangely enough) but for convenience, I prefer WSL.  
+This is what you need to do on a fresh Ubuntu (in my case 20.04) install under Windows WSL 
     
 ```sudo apt-get update && apt-get install make```  
 ```sudo apt-get install gcc-arm-none-eabi```  
