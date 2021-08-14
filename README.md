@@ -1,4 +1,4 @@
-# Setting up Dev environment under WSL #
+# Setting up Pitrex Development environment under WSL #
 I'm using WSL to compile Pitrex. This is what you need to do on a fresh Ubuntu (in my case 20.04) install under Windows WSL 
     
 ```sudo apt-get install make```
