@@ -9,6 +9,13 @@ Download file and install:
   
 `sudo tar -xf gcc-arm-none-eabi-8-2019-q3-update-linux.tar.bz2  -C /opt`  
 `printf 'export PATH=/opt/gcc-arm-none-eabi-8-2019-q3-update/bin:$PATH' >> ~/.bashrc`  
+`source ~/.bashrc`  
+  
+You should now be able to compile some Pitrex code. Quick test:  
+  
+`cd /mnt/c/code/Pitrex/pitrex/loader`
+`make -f Makefile`  
+  
   
    
 
