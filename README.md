@@ -1,4 +1,4 @@
-*** Setting up Dev environment under WSL ***  
+# Setting up Dev environment under WSL #
 I'm using WSL to compile Pitrex
 THis is what you need to do on a fresh Ubuntu install under Windows WSL
 ```sudo apt-get install gcc-arm-none-eabi```  
