@@ -13,7 +13,7 @@ Download file and install:
   
 You should now be able to compile some Pitrex code. Quick test:  
   
-`cd /mnt/c/code/Pitrex/pitrex/loader`
+`cd /mnt/c/code/Pitrex/pitrex/loader`  
 `make -f Makefile`  
   
   
