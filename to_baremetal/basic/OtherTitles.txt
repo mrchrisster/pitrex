@@ -1,0 +1,105 @@
+In the Forum of Vectrex32 there are a couple of games that can be downloaded.
+(http://forums.vectrex32.com/index.php/board,4.0.html)
+
+Due to copyright reasons I will not include them with this PiTrex distribution.
+
+Some of these games were written for older versions of the BASIC, and some
+functions were added or changed names after the games were finished.
+These functions now are problematic with new version of the BASIC.
+The programs will quit with an error message.
+
+Following list shows the faults I found. Usually you only have to very slightly
+change one or two lines in order for the programs to work again as intended.
+
+
+
+
+VecAkalabeth
+############
+VecAkalabeth as downloaded from Vectrex32 Forum.
+
+CAUSE OF ERROR: the meaning of ^ changed from exponent to EXOR.
+
+TODO:
+In the file "vecalabeth.bas"
+- in line 130 change "^" to POW
+
+##
+FROM:
+'    outsideMap[x, y] = INT((((Rand() MOD 101) / 100.0) ^ 5) * 4.5)
+TO:
+     outsideMap[x, y] = INT( POW(((Rand() MOD 101) / 100.0), 5) * 4.5)
+##
+
+--------------------------------------------------------------------------
+
+Startrex
+########
+Startrex (latest version) as downloaded from Vectrex32 Forum.
+
+CAUSE OF ERROR: Vectrex BASIC now features a function called SGN().
+This is a new function which StarTrex has implemented also.
+
+TODO:
+In the file "startrex.bas" comment out the lines 3851 to 3861.
+
+##
+FROM:
+Function Sgn(innumber)							'Returns the sign of a number e.g. Sgn(-20.32) would return -1
+	If innumber < 0 Then
+		Return -1
+	Else
+		If innumber = 0 Then
+			Return 0
+		Else
+			Return 1
+		Endif
+	Endif
+Endfunction
+
+TO:
+'Function Sgn(innumber)							'Returns the sign of a number e.g. Sgn(-20.32) would return -1
+'	If innumber < 0 Then
+'		Return -1
+'	Else
+'		If innumber = 0 Then
+'			Return 0
+'		Else
+'			Return 1
+'		Endif
+'	Endif
+'Endfunction
+##
+
+--------------------------------------------------------------------------
+
+Vector Gunner
+#############
+Vector Gunner as downloaded from Vectrex32 Forum.
+
+CAUSE OF ERROR: Vectrex BASIC now features a function called ATAN2().
+This is a new function which Vector Gunner has implemented also.
+
+The ATAN2 function in Vector Gunner behaves differently than the function of
+BASIC, therefor we must keep it as it is, we only rename it!
+
+TODO:
+In the file "VectorGunner.bas" change line 790
+
+##
+FROM:
+function atan2(y,x)
+
+TO:
+function atan2vg(y,x)
+
+!!!AND!!!  change line 320
+
+FROM:
+					a = (atan2(dy, dx) * 180/pi)
+
+TO:
+					a = (atan2vg(dy, dx) * 180/pi)
+##
+
+--------------------------------------------------------------------------

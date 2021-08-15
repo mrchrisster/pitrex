@@ -1,0 +1,331 @@
+
+PiTrex - Baremetal FAQ V1.0 (16th April 2021)
+
+1) Where do I get roms for the arcade emulations?
+2) Where do I put roms for the arcade emulations?
+3) I have a no Buzz vectrex - anything special?
+4) I have a Buzz vectrex - anything special?
+5) Vectors do not align correctly - can I do something?
+6) Can I change orientation of the output?
+7) What is "speedy" vectrex?
+8) What is "exact" vectrex?
+9) XXX - emulation is awfully slow, can I do something?
+10) XXX - I here no sound, what can I do?
+11) Some sounds are really soft, what can I do?
+12) Sometimes single vectors in a group are "off", what can I do?
+13) Can I change the selection of games, or add favorites?
+14) Can I change the Vectrex BIOS?
+15) Where can I put my own vectrex roms/binaries?
+16) Which games support highscore saving?
+17) Which games have sound?
+18) What is supported with AAE?
+19) What is supported with Cinnematronics?
+20) What is supported with Atari?
+21) How do I enter settings?
+22) How do I enter DIP switch settings?
+23) Can I configure different input settings for emulator XXX?
+24) Can I prevent settings menu/DIP Switch settings?
+25) Can I configure settings for games individually?
+26) What are ini files, which emulators support ini files?
+27) Are there special ini settings for emulator XXX?
+28) Some more words on Settings!
+29) Does it support Bluetooth
+30) Does it support WiFi?
+31) Does it support USB?
+32) Can I calibrate or change the output of the vectrex emulators.
+33) Finishing a Vectrex game (4 button to the menu) crashes  - a black screen appears, whats ups?
+34) How do I load a saved state with Vectrex emulators?
+
+
+
+1) Where do I get roms for the arcade emulations?
+#################################################
+For the arcade emulations !NON! AAE.
+------------------------------------
+The files are EXACTLY from the current MAME 229 version. (Which are the same versions as at least 3 years back, I checked MAME 201).
+If you need checksums of any sorts - pls look at MAME!
+
+The only thing which might be a little confusing is asteroids, because the SBT was done with the ROM set that is now called "asteroid2".
+
+To my knowledge there are three kinds of MAME rom sets:
+
+a) split
+Here each zip file only contains files which are different from the main driver.
+I support split roms, but than you must have asteroid.zip (7kB) AND asteroid2.zip (4kB)
+
+b) merged
+Here one zip file contains ALL derivates of a driver. For asteroid and its derivates it is called asteroid.zip (56kB)
+I do not support this version.
+
+c) non merged
+Here each individual game has one zip file, which contains all the game needs (also the redundant files, which are already included in the main driver).
+This is supported and needs a file asteroid2.zip (7kB).
+
+For the arcade emulations AAE.
+------------------------------
+I have not "unified" the roms for AAE yet. And I don't know what version they must be.
+The thing is the aae source code included all roms, so I never had to look for them.
+If you find the sources for AAE in the internet - THAT are the roms you need :-).
+
+
+2) Where do I put roms for the arcade emulations?
+#################################################
+- Non AAE emulation roms go into the directory /roms
+- AAE emulation roms go into the directory /roms/aae
+
+3) I have a no Buzz vectrex - anything special?
+###############################################
+Yes.
+I have not implemented calibration for no Buzz vectrex.
+Please leave the settings: CALIBRATION at 0!
+
+Also - all digitized sound output will be very soft. This is a hardware thing and I cannot change it!
+
+4) I have a Buzz vectrex - anything special?
+#############################################
+No, not really!
+
+5) Vectors do not align correctly - can I do something?
+#######################################################
+You can enter the settings menu and change different settings.
+"In general" alignment issues might be corrected using the CALIBRATION settings.
+
+6) Can I change orientation of the output?
+##########################################
+Yes, in general within the settings you can change orientation.
+You can change also orientation individually for each game by entering the
+ORIENTATION configuration to the emulators ini file.
+like:
+; orientation rotated clock wise 0=normal, 1 = left, 2=up, 3 = right
+ORIENTATION = 0
+
+7) What is "speedy" vectrex?
+############################
+Speedy Vectrex is a "special" emulation mode for vectrex games.
+The games usually run about 30%-50% faster than the original.
+This is either recognizable by the pure speed of the game (Dark Tower), or
+noticable by the fact, that output is done in 50Hz.
+
+8) What is "exact" vectrex?
+###########################
+The Vectrex is emulated by the PiTrex as exact as known by the author.
+Most games should run as well as on a "normal" vectrex.
+Known exceptions: 3d-Imager games (VIA interrupt is not supported)
+
+9) XXX - emulation is awfully slow, can I do something?
+#######################################################
+Probably not.
+As of now nearly all emulators are implemented the "classic" way, meaning not
+as static binary compiles - this is sometimes quite slow (e.g. Star Wars).
+
+Also depending on the sheer amount of vectors some emulators output, the output can
+be very flickery.
+The goal of the author is it, to sooner or later approach each emulated game seperately
+and optimize performance per emulation. As of now this has only been done for:
+- Vectrex
+- Tailgunner
+- Asteroids
+- Battlezone
+
+That being said, using the settings, you can squeeze a little bit of vector performance
+out of your individual PiTrex/Vectrex pairing. Here you have to experiment.
+A good calibration will e.g. display all above emulators in 50Hz and without any wobble or slowdown!
+
+10) XXX - I hear no sound, what can I do?
+#########################################
+Sound is only implement for:
+- Vectrex
+- Tailgunner
+- Asteroids
+- Battlezone
+First stages of a pokey emulation started for "Atari" emulators, but these are only
+singular sound pieces - and/or more disturbing than helpful.
+For Star Wars TMS 5220 emulation started to sampled sound output, but since emulation is
+to slow, the output is also rather choppy.
+
+11) Some sounds are really soft, what can I do?
+###############################################
+This might be caused by you using a so called "no buzz" vectrex,
+which plays "digitized audio" very soft.
+
+12) Sometimes single vectors in a group are "off", what can I do?
+#################################################################
+It might be you have a vectrex, which I call "cranky", certain
+setting values might help, namely:
+DELAY AFTER YSH
+DELAY B BEFORE A
+MAX STRENGTH
+For all these settings:
+- lower -> faster output
+- higher -> better display with cranky
+
+13) Can I change the selection of games, or add favorites?
+##########################################################
+No, not yet, you need to recompile the loader.
+If you are into that (not too complicated), instructions can be
+found at: http://vide.malban.de/ (pitrex menu)
+
+14) Can I change the Vectrex BIOS?
+##################################
+Yes, the "vectrex.ini" file provides a setting for BIOS, example:
+ROM_FILE = bios/7ADB.bin
+
+15) Where can I put my own vectrex roms/binaries?
+#################################################
+The exact vectrex emulator can load roms from the SD card,
+the roms must be placed into folder: "/vectrex" and should have
+the "bin" extension.
+
+16) Which games support highscore saving?
+#########################################
+asteroids and Battlezone.
+
+17) Which games have sound?
+###########################
+- Vectrex
+- Tailgunner
+- Asteroids
+- Battlezone
+First stages of a pokey emulation started for "Atari" emulators, but these are only
+singular sound pieces - and or more disturbing than helpful.
+For Star Wars TMS 5220 emulation started to sampled sound output, but since emulation is
+to slow, the output is also rather choppy.
+
+18) What is supported with AAE?
+###############################
+Loading and (slowly) playing of:
+(rom loading takes a few seconds!)
+Star wars (Button 1 AND 2 insert a coin)
+Major Havoc
+Asteroids Deluxe (no input configured)
+Cinnematronics can be loaded, but there are no controls configured yet - so these are unplayable.
+
+19) What is supported with Cinnematronics?
+##########################################
+I would not really recommend any of the current implementations, all are
+lacking in some way, best are:
+- Tailgunner, Starhawk, Barrier
+Although Armor Attack and Warrior work good - the missing overlay makes them nearly unplayable.
+
+20) What is supported with Atari?
+#################################
+Working good:
+- Battlezone
+Working Ok:
+- Black Widow (no sound, due to many vectors a tad slow)
+- Red baron (no sound, not my game - does it play ok?)
+- Lunar Lander (no sound, not my game, seems to be working, due to many vectors a tad slow)
+- Gravitar (no sound, due to many vectors a tad slow)
+- Space Duel (no sound, upon high score entry jumps into the
+              internal debugger, if you have a terminal and type go - it continues normally)
+- Tempest (no sound, due to many vectors a tad slow/distorted)
+Not Working OK
+- Asteroids
+- Asteroids deluxe
+
+21) How do I enter settings?
+############################
+In the main menu go left - if you change settings here, they are saved!
+
+During game execution press Button 2 on Joystick 2 - here you can change all settings,
+and they are used within the game, but the settings are NOT saved.
+The access via Button 2/Joystick 2 can be configured in the vectrexInterface.ini to be disabled!
+
+22) How do I enter DIP switch settings?
+#######################################
+The only games using Dipswitches at the moment are:
+Asteroids and Battlezone
+To enter the dipswitch settings press Button 1 and Button 4 at the same time.
+With asteroids this can be changed within the "asteroid_sbt.ini" file.
+
+23) Can I configure different input settings for emulator XXX?
+##############################################################
+At the moment the only emulator you can change input settings for using the ini file
+is asteroids.
+
+24) Can I prevent settings menu/DIP Switch settings?
+####################################################
+Settings:
+In the vectrexInterface,ini file you can disable the in game setting with:
+IN_GAME_SETTINGS = 0
+
+Dip Switch:
+With asteroids this can be changed within the "asteroid_sbt.ini" file.
+ENTER_DIP=    BUTTON_1_1|BUTTON_1_4|BUTTON_AND
+
+With Battlezone at the time being that can not be changed.
+
+25) Can I configure settings for games individually?
+####################################################
+Yes, each game (not within AAE yet), can have individual ini files.
+But these must be created manually. Each of these ini files can have the same
+"command set" as the vectrexInterface.ini file.
+
+Settings in the individual ini files
+- overwrite settings found in the vectrexInterface.ini
+- overwrite internal default values for each emulator
+
+26) What are ini files, which emulators support ini files?
+##########################################################
+See answer to #25.
+
+27) Are there special ini settings for emulator XXX?
+####################################################
+Vectrex:
+ROM_FILE = bios/7ADB.bin
+HANDLE_STATES = 0; (1 == default) on start load, on 4 button "end" save state of the current vertex
+
+Asteroids_sbt:
+ROTATE_LEFT = 	BUTTON_1_1|BUTTON_2_1|JOYPAD_1_ANALOG|JOYPAD_2_ANALOG|JOYPAD_LEFT
+ROTATE_RIGHT = 	BUTTON_1_2|BUTTON_2_2|JOYPAD_1_ANALOG|JOYPAD_2_ANALOG|JOYPAD_RIGHT
+THRUST = 	BUTTON_1_3|BUTTON_2_3|JOYPAD_1_ANALOG|JOYPAD_2_ANALOG|JOYPAD_UP
+FIRE = 		BUTTON_1_4|BUTTON_2_4
+HYPERSAPCE = 	JOYPAD_1_ANALOG|JOYPAD_2_ANALOG|JOYPAD_DOWN
+START1 = 	BUTTON_1_3|BUTTON_1_4|BUTTON_AND
+START2 =	BUTTON_2_3|BUTTON_2_4|BUTTON_AND
+ENTER_DIP=    BUTTON_1_1|BUTTON_1_4|BUTTON_AND
+AST_DISW_LANGUAGE = ENGLISH ; ENGLISH, GERMAN, FRENCH, SPANISH
+AST_DISW_LIVES= 4 ; 3 or 4
+
+Battlezone:
+YATES_INPUT = 0 ; or 1
+ONLY_ONE_JOYSTICK = 1;
+
+28) Some more words on Settings!
+################################
+Many explanations are included in the vide: https://www.youtube.com/watch?v=buAxW5p1g9c
+
+29) Does it support Bluetooth
+#############################
+This is strictly baremetal: No - and it never will!
+
+30) Does it support WiFi?
+#########################
+This is strictly baremetal: No - and it (probably) never will!
+
+31) Does it support USB?
+########################
+This is strictly baremetal: No - perhaps it will support keyboard and mice, but probably no
+other devices, e.g. once with interrupt capabilities.
+
+32) Can I calibrate or change the output of the vectrex emulators.
+##################################################################
+No.
+The output of these emulators go directly to the VIA, there is no "in between" where
+one could change the values (easily).
+
+33) Finishing a Vectrex game (4 button to the menu) crashes  - a black screen appears, whats ups?
+#################################################################################################
+Exiting Vectrex games with a 4 button press (if configured) saves the state of the 
+current emulation. There are SD-cards where this is done in 1/2 a second, so that you don't notice it.
+But I have reports, that on some other SD cards saving can take up to 20 seconds.
+While saving the screen remains blank and the vectrex seems to hang.
+
+To disable state saving, you can enter in the vectrex.ini:
+HANDLE_STATES = 0; (1 == default) on start load, on 4 button "end" save state of the current vertex
+
+34) How do I load a saved state with Vectrex emulators?
+#######################################################
+Starting a Vectrex game with button 1 instead of button 4, loads the last saved state.
+
+

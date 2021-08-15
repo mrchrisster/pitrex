@@ -1,0 +1,31 @@
+Place rom files for the emulators here.
+
+These should be the latest MAME compatible rom files, zipped.
+
+10296  armora.zip10848  astdelux.zip 7264  asteroid.zip 3610  asteroid2.zip 4143  barrier.zip27123  boxingb.zip27400  bwidow.zip14534  bzone.zip35559  cchasm.zip16122  demon.zip26320  gravitar.zip11523  llander.zip27911  qb3.zip17371  redbaron.zip 8171  ripoff.zip13077  solarq.zip20209  spacduel.zip 4773  spacewar.zip 8037  speedfrk.zip 8003  starcas.zip 4664  starhawk.zip 8237  sundance.zip 7969  tailg.zip20623  tempest.zip7828  warrior.zip11989  wotw.zipThe files are EXACTLY from the current MAME 229 version. (Which are the same versions as at least 3 years back, I checked MAME 201).
+If you need checksums of any sorts - pls look at MAME!
+
+The only thing which might be a little confusing is asteroids, because the SBT was done with the ROM set that is now called „asteroid2“.
+
+To my knowledge there are three kinds of MAME rom sets:
+
+a) split
+Here each zip file only contains files which are different from the main driver.
+I support split roms, but than you must have asteroid.zip (7kB) AND asteroid2.zip (4kB)
+
+b) merged
+Here one zip file contains ALL derivates of a driver. For asteroid and its derivates it is called asteroid.zip (56kB)
+I do not support this version.
+
+c) non merged
+Here each individual game has one zip file, which contains all the game needs (also the redundant files, which are already included in the main driver).
+This is supported and needs a file asteroid2.zip (7kB).
+
+
+Roms for the age emulator must be put into the subdirectory AAE.
+I have not "unified" the roms for AAE yet. And I don't know what version they must be.
+The thing is the age source code included all roms, so I never had to look for them.
+
+If you find the sources for AAE in the internet - THAT are the roms you need :-).
+
+
