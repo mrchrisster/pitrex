@@ -17,8 +17,7 @@ The code and release is based on Malban's June 15, 2021 release. Most of this co
 # Setting up Pitrex Development environment under WSL #
   
 Malban works with a VM image to compile Pitrex. You can watch his setup tutorial [here](http://vide.malban.de/pitrex/pitrex-baremetal-quick-start-unfinished)  
-  
-Since I work with Windows, I use WSL.  
+ 
 This is what you need to do on a fresh Ubuntu (in my case 20.04) install under Windows WSL 
     
 ```sudo apt-get update && apt-get install make```  
