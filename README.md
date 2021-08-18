@@ -1,3 +1,14 @@
+# What is Pitrex #  
+  
+The PiTrex cartridge connects a Raspberry Pi Zero with a Vectrex. It is a cartridge that allows to run programs and games on the Raspberry Pi which can use the Vectrex as a vector monitor and use the vectrex controller as the input device.  
+  
+# Disclaimer #  
+  
+Most of this code hosted here is written by Malban and you can find more info [here](http://vide.malban.de) 
+  
+# Current Changelog #  
+The code and release is based on Malban's June 15, 2021 release.
+  
 # Setting up Pitrex Development environment under WSL #
   
 Malban works with a VM image to compile Pitrex. You can watch his setup tutorial [here](http://vide.malban.de/pitrex/pitrex-baremetal-quick-start-unfinished)  
