@@ -11,7 +11,7 @@ I'm just modifying existing code so please don't expect new emulator features fr
 # Current Changelog #  
   
   - Added a menu to randomly launch a Vectrex Game  
-  - Added Demo File Slection Menu  
+  - Added Demo File Selection Menu  
   - Added Star Wars (AAE) menu  
   - Changed layout of Menu  
   - Omitted Music Player, Video Player and Vectrex Speedy  
