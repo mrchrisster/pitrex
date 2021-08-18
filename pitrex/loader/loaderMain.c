@@ -1,54 +1,3 @@
-/* "ini Order" ...
-
-default.setting
-vectrexInterface.ini
-  -> vectrex.setting
-  -> vectrex.ini
-
-  -> sim.setting
-  ->sim.ini
-     -> each game.ini
-
-  -> cine.setting
-   ->cine.ini
-     -> each game.ini
-
-*/
-
-
-
-// settings for arcade emulators with ini file!
-
-// scan for todo... in source files to get more ideas
-
-// formy taste asteroids wobbles to much and the display is jumpy on the edges.
-// I have to optimize the positioning... perhaps keep to one scale and/or to a zero ref more often, or in between need of display "black" vectors...
-// also asteroids sound effects could be done better... 
-
-// check all arcade roms in menu
-
-// add a custom clipping to config!
-
-// the only way to get output faster done is to parallel processing and output
-// run output in interrupt and
-// do all emulations/cals in "normal" phase
-// that way, while moving e.g. one could process the next emulation...
-//
-// since emulation are atm at max about 20%
-// these will be COMPLETLY done while moving!
-
-//TODO make cranky value configurable for user without terminal
-//sdz in regard to actual position
-
-//SHIFT bei starup von Vectrex konfigig!!!
-
-
-// after a certain amount of resets the config does not work anymore---
-
-// cinematronix / mame
-
-// new cycle timers
-//
 
 #include <stdio.h>
 #include <stdlib.h> // atoi
@@ -104,8 +53,10 @@ void cleanup_before_linux (void)
 }
 
 char *filesInDir[1000][40];
+char *filesInDir2[1000][40];
 int currentSelectedItem = 0;
 int currentSelectedItem2 = 0;
+int currentSelectedItem3 = 0;
 #define MAX_LOAD (1024*1024*100) // 100 MB
 
 // for dev only
@@ -152,8 +103,6 @@ void reloadLoader()
     }
 }
  
-
-
 void loadAndStart(MenuItemNew *item, int button)
 {
     v_removeIRQHandling();
@@ -163,7 +112,7 @@ void loadAndStart(MenuItemNew *item, int button)
     loaderSettings.lastSelection = item;
     
     // parameter 3 always contains button
-    // that the selected item waas started with!
+    // that the selected item was started with!
     loaderSettings.parameter3[0] = button;
     loaderSettings.parameter3[1] = 0;
     
@@ -198,12 +147,32 @@ void loadAndStart(MenuItemNew *item, int button)
       {
           f_close(&file_object_rd);
           int c=0;
-          if ((item->param1 != 0) || (item->id == 9999))
+          if ((item->param1 != 0) || (item->id == 9999) || (item->id == 66) || (item->id == 8888))
           {
             char *parameter = item->param1;
+
+			// choose random game (only first 40 games in dir)
+			if (item->id == 66)
+            {
+			srand(time(NULL)); 
+			int randomgame = rand() % 40;
+			parameter = (char *) &(filesInDir[randomgame][0]);
+			
+			}
+			
             if (item->id == 9999)
             {
               parameter = (char *) &(filesInDir[currentSelectedItem][0]);
+            }
+			 if (item->id == 8888)
+            {
+			// Adding static demo path for now
+			char str1[30] = "demos/"; 			
+			char *str2 = (char *) &(filesInDir2[currentSelectedItem3][0]);;
+			strncat(str1, str2, 25);
+			char *result = str1;
+			parameter = result;
+			  
             }
             while (*parameter != (char) 0)
             {
@@ -231,11 +200,15 @@ void loadAndStart(MenuItemNew *item, int button)
               loaderSettings.parameter1[0] = currentSelectedItem2;
           }
           
+
           
           
           
           loaderSettings.parameter2[c]= (unsigned char) 0;
 
+		  
+		  
+		  
           printf("Starting loaded file... \r\n");
           isb();
           dsb();
@@ -254,6 +227,7 @@ void loadAndStart(MenuItemNew *item, int button)
       }
     }
 }
+
 
 
 #include "ymStuff.i"
@@ -313,7 +287,7 @@ double pitrexSize=0;
 int selectionMade = 0;
 void initMenu();
 void displayMenu();
-void drawPitrex();
+
 void initTestRoms();
 
 int skipWave = 0;
@@ -404,15 +378,6 @@ void loaderMain()
     ini_parse("loader.ini", loaderIniHandler, 0);
     
 
-    /*if (!skipWave)
-    {
-      loadAndPlayRAW();
-      v_init(); // vectrex interface
-    }*/
-    usePipeline = 1; 
-
-    clipActive = 1;
-    clipMode = 1; // 0 normal clipping, 1 = inverse clipping
 
 // doBitmap();
     
@@ -422,44 +387,7 @@ void loaderMain()
     v_enableJoystickDigital(0,0,0,0);
     v_enableJoystickAnalog(0,0,0,0);
     
-    clipminX=-5000;
-    clipmaxX= 5000;
-    clipminY= -5000;
-    clipmaxY= 5000;
-    
-    fall = 0;
-    blow=100;
-    
-    
-      fall-=4;
-      
-      clipminY += fall;
-      clipmaxY += fall;
-      clipminX += blow;
-      clipmaxX += blow;
-      if ((clipmaxX >= 18000) && (blow>0)) blow =-blow;
-      if ((clipminX <= -18000) && (blow<0)) blow =-blow;
-      if ((clipminY <= -20000) && (fall<0)) {fall =-350;clipminY = -20000; clipmaxY = clipminY+10000;fall =-fall;}
-      
-      v_WaitRecal();
-      if (pitrexSize<1) pitrexSize+=0.01;else pitrexSize=1;
-      //drawPitrex();
-      v_doSound(); // not needed with IRQ Mode
-      v_readButtons(); // not needed with IRQ Mode
-      //if ((currentButtonState&0x0f) == (0x08)) // exactly button 4
-      //  break;
-      
-      /*
-      char lk = USPiKeyboardLastKeyDown();
-      if (lk)
-      {
-        printf("%c", lk);
-      }
-      */
-      
-      
-      
-    
+ 
     v_removeIRQHandling();  
     setCustomClipping(0, -14000, -14000, 14000, 14000);
     clipActive = 0;
@@ -498,72 +426,7 @@ void loaderMain()
 #include "icons.i"
 
 
-int angleX = 0;
-int angleY = 0;
-int angleZ = 0;
-void draw3dList(Vector3d l[], float mul, int angleOffset, int xOffset, int yOffset)
-{
-  int count = 0;
-  angleX = (angleX + 1)%360;
-  angleY = (angleY + 1)%360;
-  angleZ = (angleZ + 1)%360;
-  
-  
-  buildRotationX((angleX+angleOffset)%360);
-  buildRotationY((angleY+angleOffset)%360);
-  buildRotationZ((angleZ+angleOffset)%360);
-  
-  
-  while ((l[count].y0!=-1) && (l[count].x0!=-1))
-  {
-    Vertex3d original;
-    Vertex3d rotatedStart;
-    original.x = l[count].x0;
-    original.y = l[count].y0;
-    original.z = l[count].z0;
-    
-    multiplyMatrix(rotX, original, &rotatedStart);
-    copyVertex3d(rotatedStart, &original);
-    multiplyMatrix(rotY, original, &rotatedStart);
-    copyVertex3d(rotatedStart, &original);
-    multiplyMatrix(rotZ, original, &rotatedStart);
- 
-    Vertex3d rotatedEnd;
-    original.x = l[count].x1;
-    original.y = l[count].y1;
-    original.z = l[count].z1;
-    if (((angleX+angleOffset)%360) != 0)
-    {
-      multiplyMatrix(rotX, original, &rotatedEnd);
-      copyVertex3d(rotatedEnd, &original);
-      multiplyMatrix(rotY, original, &rotatedEnd);
-      copyVertex3d(rotatedEnd, &original);
-      multiplyMatrix(rotZ, original, &rotatedEnd);
-    }
-    else
-    {
-      copyVertex3d(original, &rotatedEnd);
-    }
-    
-    int x0 = (int)(((rotatedStart.x)<<7)*pitrexSize);
-    int y0 = (int)(((rotatedStart.y)<<7)*pitrexSize);
-    int x1 = (int)(((rotatedEnd.x)<<7)*pitrexSize);
-    int y1 = (int)(((rotatedEnd.y)<<7)*pitrexSize);
-    
-    v_directDraw32(x0*mul+xOffset, y0*mul+yOffset,x1*mul+xOffset,y1*mul+yOffset, 0x5f);
-    count++;
-  }
-}
 
-void drawPitrex()
-{
-  setCustomClipping(1, -14000, -14000, 14000, 14000);
-  draw3dList(PiTrexHershey3d,1.5, 0,0,0);
-  commonHints = PL_BASE_FORCE_NOT_CLIPPED | PL_BASE_FORCE_STABLE;
-  setCustomClipping(1, clipminX, clipminY, clipmaxX, clipmaxY);
-  draw3dList(PiTrexHershey3d, 0.6, 60,5000+clipminX,5000+clipminY);
-  commonHints = 0;
-}
 
 
 void displayLargeList(const signed char list[])
@@ -594,7 +457,8 @@ void displayLargeListUp(const signed char list[])
     count --;
   }
 }
-
+MenuItemNew randomMenu;
+MenuItemNew demoMenu;
 MenuItemNew vectrexMenu;
 MenuItemNew settingsMenu =
 {
@@ -608,8 +472,8 @@ MenuItemNew settingsMenu =
   0, // smallicon
   0,    // has no parent
   0,    // ! firstChild must be set
-  0,    // has no left
-  &vectrexMenu,    // ! right must be set
+  &demoMenu,    // has no left
+  0,    // ! right must be set
   0,    // scrolltext
   0,    // no text
 };
@@ -625,7 +489,7 @@ MenuItemNew vectrexMenu =
   vectrexSmallIcon, // smallicon
   0,    // has no parent
   0,    // ! firstChild must be set
-  &settingsMenu,    // has no left
+  &randomMenu,    // has no left
   0,    // ! right must be set
   0,    // scrolltext
   0,    // no text
@@ -644,11 +508,27 @@ MenuItemNew arcadeMenu =
   0,    // has no parent
   0,    // ! firstChild must be set
   0,    // ! left must be set
-  0,    // ! right must be set
+  &demoMenu,    // ! right must be set
   0,    // scrolltext
   0,    // no text
 };
-
+MenuItemNew randomMenu =
+{
+  66,    // ID
+  0,    // no name
+  0,    // no start directory
+  "vectrexexact.img",    // no start image
+  "",    // no parameter
+  0,    // no parameter
+  vecrandomList, // icon
+  0, // smallicon
+  0,    // has no parent
+  0,    // ! firstChild must be set
+  0,    // ! left must be set
+  &vectrexMenu,    // ! right must be set
+  0,    // scrolltext
+  "","","","","", "PLAY A RANDOM","VECTREX GAME"  , 0      // no text
+};
 /*MenuItemNew videoMenu =
 {
   3,    // ID
@@ -759,7 +639,11 @@ MenuItemNew newKindMenu =
   "","","","","A GAME BY CHRISTIAN PINDER","OIGINAL BY", "DAVID BRABEN", "IAN BELL", 0   // no text
 };
 */
-
+MenuItemNew demopickMenu;
+MenuItemNew demo1Menu;
+MenuItemNew demo2Menu;
+MenuItemNew demo3Menu;
+MenuItemNew demo4Menu;
 MenuItemNew exactMenu;
 MenuItemNew exactPickOne;
 MenuItemNew speedMenu;
@@ -961,7 +845,7 @@ MenuItemNew solarSpeedMenu =
 
 
 MenuItemNew exactkarlQuappeMenu;
-MenuItemNew demoMenu;
+
 MenuItemNew exactMenu =
 {
   107,    // ID
@@ -990,7 +874,7 @@ MenuItemNew exactkarlQuappeMenu =
   0,    // no parameter
   froggerList, // icon
   0, // smallicon
-  &exactMenu,    // has parent
+  &vectrexMenu,    // has parent
   0,    // ! firstChild must be set
   &exactMenuRelease,    // ! left must be set
   0,    // ! right must be set
@@ -1009,7 +893,7 @@ MenuItemNew exactMenuRelease =
   0,    // no parameter
   releaseList, // icon
   0, // smallicon
-  &exactMenu,    // has parent
+  &vectrexMenu,    // has parent
   0,    // ! firstChild must be set
   &vectorbladeMenu,    // ! left must be set
   &exactkarlQuappeMenu,    // ! right must be set
@@ -1059,29 +943,45 @@ MenuItemNew exactPickOne =
   {"", 0},    // no text
 };
 
-
-
-MenuItemNew demo1Menu;
-MenuItemNew demo2Menu;
-MenuItemNew demo3Menu;
-MenuItemNew demo4Menu;
 MenuItemNew demoMenu =
 {
   108,    // ID
   "  DEMOS",    // no name
   0,    // directory
-  "",    // no start image
+  0,    // no start image
   "",    // no parameter
   0,    // no parameter
   demosList, // icon
   demosList, // smallicon
-  &vectrexMenu,    // has parent
-  &demo1Menu,    // ! firstChild must be set
-  &exactMenu,    // ! left must be set
-  0,    // ! right must be set
+  0,    // has parent
+  &demopickMenu,    // ! firstChild must be set
+  &arcadeMenu,    // ! left must be set
+  &settingsMenu,    // ! right must be set
   0,    // scrolltext
   {"","","","","VECTREX SCENE DEMOS!", 0},    // no text
 };
+
+MenuItemNew demopickMenu =
+{
+  8888,    // ID
+  "PICK A DEMO",    // no name
+  0,    // directory
+  "vectrexexact.img",    // no start image
+  0,    // no parameter
+  0,    // no parameter
+  0, // icon
+  0, // smallicon
+  0,    // has parent
+  0,    // ! firstChild must be set
+  0,    // ! left must be set
+  &demo1Menu,    // ! right must be set
+ // 0,    // scrolltext
+  "",    // no text
+};
+
+
+
+
 
 MenuItemNew demo1Menu =
 {
@@ -1153,6 +1053,7 @@ MenuItemNew demo4Menu =
   0,    // scrolltext
   {"WHERE HAVE ALL", "THE PIXELS GONE", "CMCC", 0},    // no text
 };
+
 MenuItemNew speedfreakMenu;
 MenuItemNew tailgunnerMenu;
 
@@ -1183,7 +1084,7 @@ MenuItemNew starwarsMenu =
   "STAR WARS",    // no name
   0,    // directory
   "aae.img",    // no start image
-  0,    // no parameter
+  "49",    // no parameter
   0,    // no parameter
   starwarsList, // icon
   0, // icon
@@ -1846,6 +1747,7 @@ MenuItemNew purpleMenu =
 int scrollReset = 1;
 
 int loadFileNames();
+int loadFileNamesDemo();
 
 void initMenu()
 {
@@ -1867,7 +1769,7 @@ void initMenu()
   selectionMade = 0;
   currentMenuItem = &vectrexMenu;
   initTestRoms();
-  loadFileNames();
+
   scrollReset = 1;
 }
 
@@ -2066,6 +1968,7 @@ void displayMenuItem(MenuItemNew *m)
       v_printString(-60, -125, "ROM NOT FOUND!", 10, 0x57);
     }
   }
+
   if (m->text != 0)
   {
     int yPos = 0;
@@ -2112,8 +2015,79 @@ int isNameOk(char *n)
   return 0;
   
 }
-
+int isNameOk2(char *n)
+{
+  int len2 = strlen(n);
+  if (*n=='.') return 0; // exclude all files starting with a .
+  
+  if (strcasecmp(".bin", n+len2-4) == 0) return 1;
+  return 0;
+  
+}
 // return 0 on ok
+int loadFileNamesDemo()
+{
+    char *vectrexdemoDir = "vectrex/demos";
+	char buf[256];
+	DIR *dp;
+    dp = opendir ("vectrex/demos");
+    // if (chdir(vectrexdemoDir)<0)
+    // {
+        // printf("loaderMain.c: loadFileNames(): NO vectrex directory found...!\r\n");
+        // return -1;
+    // }
+  
+    
+    // if (getcwd (buf,256)==0)
+    // {
+      // printf("loaderMain.c: loadFileNames(): f_getcwd failed (%i) \r\n", errno);
+      // chdir("..");
+      // return -1;
+    // }
+
+
+    // if (dp == 0)
+    // {
+      // printf("loaderMain.c: loadFileNames(): opendir failed (%i) \r\n", errno);
+      // chdir("..");
+      // return -2;
+    // }
+    dirent *finfo2;
+    int i = 0;
+    do
+    {
+      finfo2 =  readdir(dp);
+      if (finfo2 != 0)
+      {
+        if (isNameOk2(finfo2->d_name))
+        {
+          char *nameToFill2=(char *) &(filesInDir2[i][0]);
+          int c=0;
+          for (; c<39; c++)
+          {
+            nameToFill2[c]=finfo2->d_name[c];
+            if (nameToFill2[c]==0) break;
+          }
+          nameToFill2[c]=0;
+          i++;
+        }
+      }
+    } while (finfo2 != 0);
+    closedir (dp);
+    chdir("..");
+/*    
+    for(int i=0; i<1000; i++)
+    {
+      if (filesInDir[i][0] != 0)
+      {
+        printf("%s\n\r",filesInDir[i]);
+      }
+    }
+*/    
+    return 0;
+}
+
+
 int loadFileNames()
 {
     char *vectrexDir = "vectrex";
@@ -2180,6 +2154,7 @@ void displayMenu()
   displayMenuItem(currentMenuItem);
   if (currentMenuItem->id == 9999)
   {
+	loadFileNames();
     int yPos = 0;
     int itemDisplayStart = currentSelectedItem-2;
 
@@ -2198,6 +2173,31 @@ void displayMenu()
     if (filesInDir[itemDisplayStart+4][0] != 0)
       v_printString(-40, yPos-4*18, (char *) &(filesInDir[itemDisplayStart+4][0]), 5, 0x18);
   }
+  if (currentMenuItem->id == 8888)
+  {
+	loadFileNamesDemo();
+    int yPos = 0;
+    int itemDisplayStart = currentSelectedItem3-2;
+
+    if ((itemDisplayStart>=0) && (filesInDir2[itemDisplayStart+0][0] != 0))
+      v_printString(-40, yPos -0*18, (char *) &(filesInDir2[itemDisplayStart][0]), 5, 0x18);
+
+    if ((itemDisplayStart+1>=0) && (filesInDir2[itemDisplayStart+1][0] != 0))
+      v_printString(-40, yPos-1*18, (char *) &(filesInDir2[itemDisplayStart+1][0]), 5, 0x28);
+
+    if (filesInDir2[itemDisplayStart+2][0] != 0)
+      v_printString(-40, yPos-2*18, (char *) &(filesInDir2[itemDisplayStart+2][0]), 5, 0x4f);
+    
+    if (filesInDir2[itemDisplayStart+3][0] != 0)
+      v_printString(-40, yPos-3*18, (char *) &(filesInDir2[itemDisplayStart+3][0]), 5, 0x28);
+    
+    if (filesInDir2[itemDisplayStart+4][0] != 0)
+      v_printString(-40, yPos-4*18, (char *) &(filesInDir2[itemDisplayStart+4][0]), 5, 0x18);
+  }
+
+  
+  
+  
   static char *aaeList[]=
   {
 //Lunar Lander Hardware
@@ -2294,13 +2294,6 @@ void displayMenu()
   // aae
 
 
-	
-  if (currentMenuItem->id == 6001)
-  {
-	      int itemDisplayStart = currentSelectedItem2-2;
-	v_printString(-40, yPos-4*18, (char *) (aaeList[itemDisplayStart+4]), 5, 0x18);
-  }
-  
   if (currentMenuItem->id == 6000)
 
   {
@@ -2365,7 +2358,12 @@ void displayMenu()
     {
       if (aaeList[currentSelectedItem2+1] != 0)
         currentSelectedItem2++;
-    }    
+    }      
+	if (currentMenuItem->id == 8888)
+    {
+      if (filesInDir2[currentSelectedItem3+1][0] != 0)
+        currentSelectedItem3++;
+    }  
     selectionMade = 1;
   }
   if ((currentJoy1Y>50) && (selectionMade==0))
@@ -2384,7 +2382,12 @@ void displayMenu()
     {
       if (currentSelectedItem2 > 0)
         currentSelectedItem2--;
-    }    
+    }     
+    if (currentMenuItem->id == 8888)
+    {
+      if (currentSelectedItem3 > 0)
+        currentSelectedItem3--;
+    }  	
     selectionMade = 1;
   }
 
@@ -2392,15 +2395,28 @@ void displayMenu()
 
   if ((currentButtonState&0x0f) == (0x08)) // exactly button 4
   {
-    if (currentMenuItem->img != 0)
+    if (currentMenuItem->img != 0) 
     {
+	 if (currentMenuItem->id == 66)
+	 {
+		 int x = 0;
+		loadFileNames();
+
+		loadAndStart(currentMenuItem, 4);
+	    
+		// reloadLoader();
+	 }
+	 else
+	 {
       loadAndStart(currentMenuItem, 4);
-    }
+     }
+	}
     if (currentMenuItem->id == 0)
     {
       v_SettingsGUI(1);
       v_saveIni("vectrexInterface.ini");
     }
+
   }  
   if ((currentButtonState&0x0f) == (0x01)) // exactly button 1
   {
@@ -2415,116 +2431,3 @@ void displayMenu()
   }  
 }
 
-void v_printBitmapUni(unsigned char *bitmapBlob, int width, int height, int sizeX, int x, int y);
-// 9x75
-unsigned char __uniDirectional[] =
-{
-  0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b01111111, 0b11100000, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00000111, 0b11111111, 0b11111111, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00111111, 0b11111111, 0b11111111, 0b11100000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b11111111, 0b11111111, 0b11111111, 0b11111100, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000011, 0b11111111, 0b11111111, 0b11111111, 0b11111110, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00001111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11100000, 0b00000000,
-  0b00000000, 0b00000000, 0b01111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11110000, 0b00000000,
-  0b00000000, 0b00000000, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11110000, 0b00000000,
-  0b00000000, 0b00000001, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111000, 0b00000000,
-  0b00000000, 0b00000001, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111100, 0b00000000,
-  0b00000000, 0b00000011, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111110, 0b00000000,
-  0b00000000, 0b00000011, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b00000000,
-  0b00000000, 0b00000011, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b00000000,
-  0b00000000, 0b00000111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b00000000,
-  0b00000000, 0b00000111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b10000000,
-  0b00000000, 0b00000111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b10000000,
-  0b00000000, 0b00000111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b10000000,
-  0b00000000, 0b00001111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b10000000,
-  0b00000000, 0b00000111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b10000000,
-  0b00000000, 0b00000111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b10000000,
-  0b00000000, 0b00000111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b00000000,
-  0b00000000, 0b00000111, 0b11111111, 0b11110111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b00000000,
-  0b00000000, 0b00001111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111000, 0b11111111, 0b00000000,
-  0b00000000, 0b00001111, 0b11111111, 0b11100000, 0b00011111, 0b11111111, 0b00000011, 0b11111111, 0b00000000,
-  0b00000001, 0b00001111, 0b11111000, 0b00000011, 0b11011111, 0b11111110, 0b00000000, 0b01111110, 0b00000000,
-  0b00000001, 0b10011111, 0b11111000, 0b10000111, 0b11111111, 0b11111111, 0b00000000, 0b00000011, 0b00000000,
-  0b00000000, 0b00011111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11000011, 0b10000011, 0b11000000,
-  0b00000000, 0b00011111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11000000,
-  0b00000001, 0b10001111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11000000,
-  0b00000001, 0b10001111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11000000,
-  0b00000001, 0b10001111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b10000000,
-  0b00000001, 0b10000111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b10000000,
-  0b00000001, 0b00000011, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b10000000,
-  0b00000001, 0b00000011, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b00000000,
-  0b00000000, 0b00000001, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b00000000,
-  0b00000000, 0b00000000, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111110, 0b00000000,
-  0b00000000, 0b00000001, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111111, 0b11111110, 0b00000000,
-  0b00000000, 0b00000001, 0b11111111, 0b11111111, 0b11100001, 0b11111110, 0b11111111, 0b11111110, 0b00000000,
-  0b00000000, 0b00000001, 0b11111111, 0b11111111, 0b11000000, 0b01110000, 0b01111111, 0b11111110, 0b00000000,
-  0b00000000, 0b00000011, 0b11111111, 0b11111111, 0b11111000, 0b00000001, 0b11111111, 0b11111110, 0b00000000,
-  0b00000000, 0b00000001, 0b11111111, 0b11111111, 0b11111111, 0b10000001, 0b11111111, 0b11111100, 0b00000000,
-  0b00000000, 0b00000001, 0b11111111, 0b11111111, 0b11000001, 0b11100000, 0b01111111, 0b11111100, 0b00000000,
-  0b00000000, 0b00000000, 0b11111111, 0b11111110, 0b00000000, 0b00000000, 0b00011111, 0b11111100, 0b00000000,
-  0b00000000, 0b00000000, 0b11111111, 0b11111000, 0b00000000, 0b00000000, 0b00000111, 0b11111000, 0b00000000,
-  0b00000000, 0b00000000, 0b11111111, 0b11110000, 0b00000000, 0b11100000, 0b00000011, 0b11110000, 0b00000000,
-  0b00000000, 0b00000000, 0b11111111, 0b11100000, 0b00011111, 0b11111100, 0b00000001, 0b11110000, 0b00000000,
-  0b00000000, 0b00000000, 0b01111111, 0b11000000, 0b00000000, 0b00000000, 0b00000001, 0b11110000, 0b00000000,
-  0b00000000, 0b00000000, 0b00111111, 0b10000000, 0b00000000, 0b00000000, 0b00000000, 0b11100000, 0b00000000,
-  0b00000000, 0b00000000, 0b00011111, 0b10000010, 0b00111111, 0b11110000, 0b01100000, 0b01000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00001111, 0b10000011, 0b11111111, 0b11111110, 0b11110000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b11111111, 0b11100111, 0b11110000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00001000, 0b01111111, 0b11111111, 0b11110000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00001000, 0b00111111, 0b11111111, 0b11110000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00000010, 0b00000111, 0b11111100, 0b11100000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00000010, 0b00000000, 0b00000000, 0b11000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00000011, 0b00000000, 0b00000001, 0b10000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00000011, 0b11110111, 0b11111111, 0b10000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00000011, 0b11111111, 0b11111111, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00000111, 0b11111111, 0b11111110, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00000001, 0b11111111, 0b11111100, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00110000, 0b00000001, 0b11111111, 0b11101100, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00011100, 0b00000000, 0b01111110, 0b00000000, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00011110, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00001111, 0b10000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000011, 0b11100000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000001, 0b11110000, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b11111100, 0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b01111110, 0b00000000, 0b00011110, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00011111, 0b00011111, 0b11111110, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00000011, 0b01111111, 0b11001100, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b11111111, 0b11111100, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b01111111, 0b11111000, 0b00000000, 0b00000000, 0b00000000,
-  0b00000000, 0b00000000, 0b00000000, 0b00000000, 0b00111110, 0b00000000, 0b01000000, 0b00000000, 0b00000000
-};
-
-void doBitmap()
-{
-  v_removeIRQHandling();
-  v_enableSoundOut(1);
-  v_enableButtons(1);
-  v_enableJoystickDigital(0,0,0,0);
-  v_enableJoystickAnalog(0,0,0,0);
-  
-  clipminX=-5000;
-  clipmaxX= 5000;
-  clipminY= -5000;
-  clipmaxY= 5000;
-  
-  fall = 0;
-  blow=100;
-  while(1)
-  {
-    v_WaitRecal();
-    drawPitrex();
-    v_doSound(); // not needed with IRQ Mode
-
-    v_printBitmapUni(__uniDirectional, 9, 75, 80, -50, 0);
-  }
-
-  v_enableJoystickAnalog(1,1,0,0);
-  v_setupIRQHandling();  
-  v_enableSoundOut(1);
-  v_enableButtons(1);
-  v_setRefresh(50);
-  v_disableReturnToLoader();  
-  
-}
