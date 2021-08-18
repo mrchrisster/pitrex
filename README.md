@@ -7,7 +7,12 @@ The PiTrex cartridge connects a Raspberry Pi Zero with a Vectrex. It is a cartri
 The code and release is based on Malban's June 15, 2021 release. Most of this code hosted here is written by Malban and you can find more info (and possibly more up to date versions) [here](http://vide.malban.de)   
 I'm just modifying existing code so please don't expect new emulator features from me. 
   
+# Pitrex Menu #  
   
+My main motivation was customizing the Menu system for Pitrex, adding new logos and changing the menu structure to my liking.  
+My code changes can therefore be found in `pitrex/loader` directory.
+The file to change the menu structure is `loaderMain.c` and the icons can be added to `icons.i`  
+   
 # Current Changelog #  
   
   - Added a menu to randomly launch a Vectrex Game  
