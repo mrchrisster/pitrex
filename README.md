@@ -20,7 +20,7 @@ You should now be able to compile some Pitrex code. Quick test:
 `cd ~/Pitrex/pitrex/loader`  
 `make -f Makefile`  
   
-*MAKE SURE YOU DON'T USE `/mnt/c` DIR. FOR SOME REASON IT MAKES COMPILING MUCH SLOWER*  
+**MAKE SURE YOU DON'T USE `/mnt/c` DIR. FOR SOME REASON IT MAKES COMPILING MUCH SLOWER** 
   
 You can access you dev dir from windows from `\\wsl$\Ubuntu\home`  
    
