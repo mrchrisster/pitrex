@@ -4,11 +4,15 @@ The PiTrex cartridge connects a Raspberry Pi Zero with a Vectrex. It is a cartri
   
 # Disclaimer #  
   
-Most of this code hosted here is written by Malban and you can find more info [here](http://vide.malban.de) 
+The code and release is based on Malban's June 15, 2021 release. Most of this code hosted here is written by Malban and you can find more info (and possibly more up to date versions) [here](http://vide.malban.de) 
   
 # Current Changelog #  
-The code and release is based on Malban's June 15, 2021 release.
   
+  - Added Random Vectrex Game Menu  
+  - Added Star Wars (AAE) menu  
+  - Changed layout of Menu  
+  - Omitted Music Player, Video Player and Vectrex Speedy  
+   
 # Setting up Pitrex Development environment under WSL #
   
 Malban works with a VM image to compile Pitrex. You can watch his setup tutorial [here](http://vide.malban.de/pitrex/pitrex-baremetal-quick-start-unfinished)  
