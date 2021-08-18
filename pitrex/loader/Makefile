@@ -74,9 +74,9 @@ loader.pit: baremetalLib vectrexLib loaderObjects
 #	arm-none-eabi-objdump -l -drwCS -D $(BUILD_DIR)loader.elf.img > $(BUILD_DIR)loader.elf.img.s
 	dd if=loader.img of=loader.pit ibs=1 skip=67076096
 	rm loader.img
-ifdef MAKE_IMAGE
-	cp loader.pit /mnt/hgfs/PiTrex/SD_DRIVE
-endif
+#	if [ ! -d /mnt/f]; then mkdir /mnt/f; fi
+	sudo mount -t drvfs f: /mnt/f
+	cp loader.pit /mnt/f
 
 clean: dirCheck
 	$(MAKE) -C $(BAREMETAL_DIR) -f Makefile clean
