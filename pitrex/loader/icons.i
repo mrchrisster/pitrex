@@ -20,6 +20,64 @@ const signed char eliteList[]=
 };
 
 
+const signed char vecrandomList[]=
+{	(signed char) 55, // count of vectors
+	(signed char) 0x31, (signed char) 0x21, (signed char) 0x33, (signed char) 0x15,	// y0, x0, y1, x1
+	(signed char) 0x33, (signed char) 0x15, (signed char) 0x39, (signed char) 0x13,	// y0, x0, y1, x1
+	(signed char) 0x01, (signed char) 0xEA, (signed char) 0xF9, (signed char) 0xEA,	// y0, x0, y1, x1
+	(signed char) 0x06, (signed char) 0xEA, (signed char) 0x0A, (signed char) 0xF3,	// y0, x0, y1, x1
+	(signed char) 0x0A, (signed char) 0xD5, (signed char) 0xFD, (signed char) 0xE2,	// y0, x0, y1, x1
+	(signed char) 0xFD, (signed char) 0xE2, (signed char) 0xFD, (signed char) 0xEA,	// y0, x0, y1, x1
+	(signed char) 0x0A, (signed char) 0xEA, (signed char) 0x0A, (signed char) 0xE1,	// y0, x0, y1, x1
+	(signed char) 0x0A, (signed char) 0xE1, (signed char) 0xFD, (signed char) 0xD5,	// y0, x0, y1, x1
+	(signed char) 0xFD, (signed char) 0xD5, (signed char) 0xFD, (signed char) 0xC4,	// y0, x0, y1, x1
+	(signed char) 0x0A, (signed char) 0xD5, (signed char) 0x0A, (signed char) 0xC4,	// y0, x0, y1, x1
+	(signed char) 0x01, (signed char) 0xEA, (signed char) 0xFD, (signed char) 0xF3,	// y0, x0, y1, x1
+	(signed char) 0x22, (signed char) 0xE4, (signed char) 0x1C, (signed char) 0xF0,	// y0, x0, y1, x1
+	(signed char) 0x1C, (signed char) 0xF0, (signed char) 0x12, (signed char) 0xF9,	// y0, x0, y1, x1
+	(signed char) 0x12, (signed char) 0xF9, (signed char) 0x00, (signed char) 0xFC,	// y0, x0, y1, x1
+	(signed char) 0x00, (signed char) 0xFC, (signed char) 0xF3, (signed char) 0xF4,	// y0, x0, y1, x1
+	(signed char) 0xF3, (signed char) 0xF4, (signed char) 0xE8, (signed char) 0xE8,	// y0, x0, y1, x1
+	(signed char) 0xE8, (signed char) 0xE8, (signed char) 0xE5, (signed char) 0xD6,	// y0, x0, y1, x1
+	(signed char) 0xE5, (signed char) 0xD6, (signed char) 0xEE, (signed char) 0xC7,	// y0, x0, y1, x1
+	(signed char) 0xEE, (signed char) 0xC7, (signed char) 0xF7, (signed char) 0xBE,	// y0, x0, y1, x1
+	(signed char) 0xF7, (signed char) 0xBE, (signed char) 0x04, (signed char) 0xBB,	// y0, x0, y1, x1
+	(signed char) 0x04, (signed char) 0xBB, (signed char) 0x16, (signed char) 0xC1,	// y0, x0, y1, x1
+	(signed char) 0x16, (signed char) 0xC1, (signed char) 0x21, (signed char) 0xCC,	// y0, x0, y1, x1
+	(signed char) 0x21, (signed char) 0xCC, (signed char) 0x24, (signed char) 0xD9,	// y0, x0, y1, x1
+	(signed char) 0x24, (signed char) 0xD9, (signed char) 0x22, (signed char) 0xE4,	// y0, x0, y1, x1
+	(signed char) 0x21, (signed char) 0xEB, (signed char) 0x24, (signed char) 0x0C,	// y0, x0, y1, x1
+	(signed char) 0x24, (signed char) 0x0C, (signed char) 0xEE, (signed char) 0x0C,	// y0, x0, y1, x1
+	(signed char) 0xEE, (signed char) 0x0C, (signed char) 0xEE, (signed char) 0xF0,	// y0, x0, y1, x1
+	(signed char) 0x0F, (signed char) 0xEA, (signed char) 0x06, (signed char) 0xEA,	// y0, x0, y1, x1
+	(signed char) 0x0A, (signed char) 0xF3, (signed char) 0x0F, (signed char) 0xEA,	// y0, x0, y1, x1
+	(signed char) 0xF9, (signed char) 0xEA, (signed char) 0xFD, (signed char) 0xF3,	// y0, x0, y1, x1
+	(signed char) 0x24, (signed char) 0xD8, (signed char) 0x2D, (signed char) 0xD8,	// y0, x0, y1, x1
+	(signed char) 0x2D, (signed char) 0xD8, (signed char) 0x33, (signed char) 0xDB,	// y0, x0, y1, x1
+	(signed char) 0x33, (signed char) 0xDB, (signed char) 0x39, (signed char) 0x13,	// y0, x0, y1, x1
+	(signed char) 0x39, (signed char) 0x13, (signed char) 0x36, (signed char) 0x21,	// y0, x0, y1, x1
+	(signed char) 0x36, (signed char) 0x21, (signed char) 0x31, (signed char) 0x24,	// y0, x0, y1, x1
+	(signed char) 0x31, (signed char) 0x24, (signed char) 0xCD, (signed char) 0x25,	// y0, x0, y1, x1
+	(signed char) 0xCD, (signed char) 0x25, (signed char) 0xC7, (signed char) 0x18,	// y0, x0, y1, x1
+	(signed char) 0xC7, (signed char) 0x18, (signed char) 0xDF, (signed char) 0x18,	// y0, x0, y1, x1
+	(signed char) 0xD6, (signed char) 0x0F, (signed char) 0xD6, (signed char) 0x09,	// y0, x0, y1, x1
+	(signed char) 0xD6, (signed char) 0x03, (signed char) 0xD6, (signed char) 0xFF,	// y0, x0, y1, x1
+	(signed char) 0xE1, (signed char) 0xE7, (signed char) 0xCF, (signed char) 0xE8,	// y0, x0, y1, x1
+	(signed char) 0xCF, (signed char) 0xE8, (signed char) 0xCC, (signed char) 0x13,	// y0, x0, y1, x1
+	(signed char) 0xC9, (signed char) 0x13, (signed char) 0xCD, (signed char) 0xE2,	// y0, x0, y1, x1
+	(signed char) 0xCF, (signed char) 0xE7, (signed char) 0xCD, (signed char) 0xDC,	// y0, x0, y1, x1
+	(signed char) 0xCD, (signed char) 0xD9, (signed char) 0xE5, (signed char) 0xD9,	// y0, x0, y1, x1
+	(signed char) 0xE2, (signed char) 0xD9, (signed char) 0xE1, (signed char) 0x13,	// y0, x0, y1, x1
+	(signed char) 0xE1, (signed char) 0x13, (signed char) 0xC7, (signed char) 0x13,	// y0, x0, y1, x1
+	(signed char) 0xC7, (signed char) 0x13, (signed char) 0xC7, (signed char) 0x16,	// y0, x0, y1, x1
+	(signed char) 0xDB, (signed char) 0x24, (signed char) 0xD5, (signed char) 0x24,	// y0, x0, y1, x1
+	(signed char) 0xD5, (signed char) 0x24, (signed char) 0xD0, (signed char) 0x1B,	// y0, x0, y1, x1
+	(signed char) 0xD0, (signed char) 0x1B, (signed char) 0xD8, (signed char) 0x1B,	// y0, x0, y1, x1
+	(signed char) 0xD8, (signed char) 0x1B, (signed char) 0xDB, (signed char) 0x24,	// y0, x0, y1, x1
+	(signed char) 0xE4, (signed char) 0x24, (signed char) 0xE1, (signed char) 0x18,	// y0, x0, y1, x1
+	(signed char) 0xE1, (signed char) 0x18, (signed char) 0x31, (signed char) 0x15,	// y0, x0, y1, x1
+	(signed char) 0x33, (signed char) 0x13, (signed char) 0x2D, (signed char) 0xD9,	// y0, x0, y1, x1
+};
 
 const signed char vectrexSmallIcon[]=
 {   (signed char) 31, // count of vectors
