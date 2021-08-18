@@ -11,7 +11,7 @@ I'm just modifying existing code so please don't expect new emulator features fr
   
 My main motivation was customizing the Menu system for Pitrex, adding new logos and changing the menu structure to my liking.  
 My code changes can therefore be found in `pitrex/loader` directory.
-The file to change the menu structure is `loaderMain.c` and the icons can be added to `icons.i`  
+To change the menu structure, please look at `loaderMain.c` and the icons can be found in `icons.i`  
    
 # Current Changelog #  
   
