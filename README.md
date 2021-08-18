@@ -8,7 +8,7 @@ The code and release is based on Malban's June 15, 2021 release. Most of this co
   
 # Current Changelog #  
   
-  - Added Random Vectrex Game Menu  
+  - Added a menu to randomly launch a Vectrex Game  
   - Added Star Wars (AAE) menu  
   - Changed layout of Menu  
   - Omitted Music Player, Video Player and Vectrex Speedy  
