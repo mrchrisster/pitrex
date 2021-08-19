@@ -68,7 +68,11 @@ Delete vector count and change line 1 and line x as follows:
 ![step2](https://github.com/mrchrisster/pitrex/blob/main/images/icons_imp2.png)
 
 ![step3](https://github.com/mrchrisster/pitrex/blob/main/images/icons_imp3.png)
-
-
+  
+  
+Et voila! You can now edit the vectors by pushing the middle mouse button to switch moving points or whole lines - or draw new lines.  
+Once you are done, go to the export tab and go to `absolut list (start + end)`  
+  
+![step4](https://github.com/mrchrisster/pitrex/blob/main/images/icons_imp4.png)
 
 
