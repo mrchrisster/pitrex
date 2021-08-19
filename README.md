@@ -1,6 +1,6 @@
 # What is Pitrex #  
   
-The PiTrex cartridge connects a Raspberry Pi Zero with a Vectrex. It is a cartridge that allows to run programs and games on the Raspberry Pi which can use the Vectrex as a vector monitor and use the vectrex controller as the input device.  
+The PiTrex cartridge connects a Raspberry Pi Zero with a Vectrex. It is a cartridge that allows to run programs and games on the Raspberry Pi which can use the Vectrex as a vector monitor and use the vectrex controller as the input device. You can find more info [here](http://www.ombertech.com/pitrex.php)  
   
 # Disclaimer #  
   
