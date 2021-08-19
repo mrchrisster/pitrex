@@ -23,9 +23,9 @@ To change the menu structure, please look at `loaderMain.c` and the icons can be
    
 # Setting up Pitrex Development environment under WSL #
   
-Malban works with a VM image to compile Pitrex. You can watch his setup tutorial [here](http://vide.malban.de/pitrex/pitrex-baremetal-quick-start-unfinished)  
+Malban works with a VM image to compile Pitrex. You can watch his setup tutorial [here](http://vide.malban.de/pitrex/pitrex-baremetal-quick-start-unfinished) if you prefer to use a VM image.  
  
-Here's how to set up the compiler on a fresh Ubuntu (in my case 20.04) install under Windows WSL 
+Since I work in Windows I found it more convenient to compile through WSL. Here's how to set up the compiler on a fresh Ubuntu (in my case 20.04) install under Windows WSL 
     
 ```sudo apt-get update && apt-get install make```  
 ```sudo apt-get install gcc-arm-none-eabi```  
