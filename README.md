@@ -45,7 +45,7 @@ You should now be able to compile some Pitrex code. Quick test:
 **MAKE SURE YOU DON'T USE `/mnt/c` DIR. FOR SOME REASON IT MAKES COMPILING MUCH SLOWER** 
   
 You can access your dev dir from windows from `\\wsl$\Ubuntu\home`  
-In `pitrex/loader/Makefile` I have it set up that it automatically copies the new version to the SD card. SD cards don't get auto-mounted in WSL so I mount the SD to Ubuntu everytime I run Makefile. If you wish to change the drive letter, update these lines in `/pitrex/loader/Makefile`:  
+In `pitrex/loader/Makefile` I have it set up that it automatically copies the new version to the SD card. SD cards don't get auto-mounted in WSL so it mounts the SD to Ubuntu everytime you run Makefile. If you wish to change the drive letter, update these lines in `/pitrex/loader/Makefile`:  
   
 `sudo mount -t drvfs f: /mnt/f`   
 `cp loader.pit /mnt/f`  
