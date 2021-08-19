@@ -54,7 +54,13 @@ In `pitrex/loader/Makefile` I have it set up that it automatically copies the ne
   
 You also need to initially create `/mnt/f`
    
+# Working with Vecci #
+  
+In order to edit the icons, you need to install the most recent versions of [Vide](http://vide.malban.de/download/download-history). Then go to `Vide.w64\Vide.app\app` and replace `Vide.jar` with the one from [here](https://github.com/mrchrisster/pitrex/blob/main/Vide/Vide.jar)  
+  
+Now you can import icons to edit from `pitrex/loader/icons.i`  
 
+[https://github.com/mrchrisster/pitrex/blob/main/images/icons_imp1.png]
 
 
 
