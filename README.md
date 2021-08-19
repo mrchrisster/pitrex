@@ -62,7 +62,12 @@ Now you can import icons to edit from `pitrex/loader/icons.i`
 
 ![step1](https://github.com/mrchrisster/pitrex/blob/main/images/icons_imp1.png)
   
-**Delete vector count** and change line 1 and line x as follows:  
+Delete vector count:  
+  
+![step2.1](https://github.com/mrchrisster/pitrex/blob/main/images/icons_imp2.png)
+
+
+Change line 1 and line x as follows:  
 
 
 ![step2](https://github.com/mrchrisster/pitrex/blob/main/images/icons_imp2.jpg)
