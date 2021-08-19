@@ -61,7 +61,13 @@ In order to edit the icons, you need to install the most recent versions of [Vid
 Now you can import icons to edit from `pitrex/loader/icons.i`  
 
 ![step1](https://github.com/mrchrisster/pitrex/blob/main/images/icons_imp1.png)
+  
+Delete vector count and change line 1 and line x as follows:  
 
+
+![step2](https://github.com/mrchrisster/pitrex/blob/main/images/icons_imp2.png)
+
+![step3](https://github.com/mrchrisster/pitrex/blob/main/images/icons_imp3.png)
 
 
 
