@@ -60,7 +60,7 @@ In order to edit the icons, you need to install the most recent versions of [Vid
   
 Now you can import icons to edit from `pitrex/loader/icons.i`  
 
-!(https://github.com/mrchrisster/pitrex/blob/main/images/icons_imp1.png)
+![step1](https://github.com/mrchrisster/pitrex/blob/main/images/icons_imp1.png)
 
 
 
