@@ -71,7 +71,7 @@ Delete vector count and change line 1 and line x as follows:
   
   
 Et voila! You can now edit the vectors by pushing the middle mouse button to switch between moving points or whole lines - or draw new lines.  
-Once you are done, go to the export tab and go to `absolut list (start + end)`  
+Once you are done, go to the export tab and go to `absolut list (start + end)` and hit the C button in the upper right corner. You can now paste this code into icons.i, change the name and use it for your new menu item.  
   
 ![step4](https://github.com/mrchrisster/pitrex/blob/main/images/icons_imp4.png)
 
