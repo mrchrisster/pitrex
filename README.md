@@ -50,7 +50,7 @@ In `Pitrex/pitrex/loader/Makefile` I have it set up that it automatically copies
 `sudo mount -t drvfs f: /mnt/f`   
 `cp loader.pit /mnt/f`  
   
-You also need to initially create /mnt/f  
+You also need to initially create `/mnt/f`
    
 
 
