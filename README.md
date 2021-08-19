@@ -5,7 +5,7 @@ The PiTrex cartridge connects a Raspberry Pi Zero with a Vectrex. It is a cartri
 # Disclaimer #  
   
 The code and release is based on Malban's June 15, 2021 release. Most of this code hosted here is written by Malban and you can find more info (and possibly more up to date versions) [here](http://vide.malban.de)   
-I'm just modifying existing code so please don't expect new emulator features from me. 
+I'm just modifying existing code so please don't expect new emulator features from me :)  
   
 # Pitrex Menu #  
   
